@@ -5,19 +5,11 @@ public class StepAmmountCalculator : MonoBehaviour
 {
     public static Action<int> OnAmmountOfStepsInvoked;
     private int _stepAmmount = 0;
-
-    private void OnEnable() {
-        StepAmmountCalculator.OnAmmountOfStepsInvoked += AddStep;
-    }
     
     private void OnEnable() {
-        GuessingCardsState.OnGuessingCardsStateEnter += ResetSteps;
-        GuessingCardsState.OnGuessingCardsStateExit += InvokeAmmountOfSteps;
     }
 
     private void OnDisable() {
-        GuessingCardsState.OnGuessingCardsStateEnter -= ResetSteps;
-        GuessingCardsState.OnGuessingCardsStateExit -= InvokeAmmountOfSteps;
     }
     public void AddStep()
     {

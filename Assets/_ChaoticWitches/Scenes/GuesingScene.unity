@@ -153,7 +153,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9905513f2125df343a56875e2d7b8deb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _originalCards: {fileID: 11400000, guid: b00ead0dd8098a94a98bd74ad91d0b8b, type: 2}
+  _originalCards: {fileID: 11400000, guid: b512ed4a3cf0b5d4099004d226ef0f2d, type: 2}
   _cardHolder: {fileID: 1165661945}
   _stepAmmountCalculator: {fileID: 110167742}
 --- !u!4 &110167741
@@ -906,8 +906,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  threshold: 0.5
-  _maxAngleToRotate: 30
+  threshold: 3
   _rightTiltColor: {r: 0.32039872, g: 0.9056604, b: 0.47758326, a: 1}
   _leftTiltColor: {r: 0.9245283, g: 0.23113208, b: 0.23113208, a: 1}
   _timeToConfirm: 1

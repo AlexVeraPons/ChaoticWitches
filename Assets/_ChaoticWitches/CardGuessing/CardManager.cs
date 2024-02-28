@@ -37,7 +37,7 @@ public class CardManager : MonoBehaviour
 
     public void GetNewCard()
     {
-        if (_availableCards.cards.Length > 0)
+        if (_availableCards.Length() > 0)
         {
             _currentCard = _availableCards.GetRandomCard();
             _cardHolder.SetCard(_currentCard);

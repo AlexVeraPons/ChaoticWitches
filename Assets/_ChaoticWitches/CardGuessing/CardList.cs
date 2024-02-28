@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -5,13 +6,22 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "NewCardList", menuName = "ChaoticWitches/CardList", order = 0)]
 public class CardList : ScriptableObject
 {
-    public Card[] cards;
+    public List<Card> cards = new List<Card>();
 
     public Card GetRandomCard()
     {
-        Card randomCard = cards[Random.Range(0, cards.Length)];
-        cards = cards.Where(x => x != randomCard).ToArray();
+        Card randomCard = cards[Random.Range(0, cards.Count)];
         return randomCard;
+    }
+
+    public void AddCard(Card card)
+    {
+        cards.Add(card);
+    }
+
+    public int Length()
+    {
+        return cards.Count;
     }
 }
 
@@ -30,4 +40,10 @@ public class Card
 
     [HideInInspector]
     public CardState state = CardState.NotGuessed;
+
+    public Card(string name)
+    {
+        this.name = name;
+        state = CardState.NotGuessed;
+    }
 }
