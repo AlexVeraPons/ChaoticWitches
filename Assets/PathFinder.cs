@@ -5,8 +5,8 @@ using UnityEngine;
 public class PathFinder : MonoBehaviour
 {
     public List<Transform> nodes = new List<Transform>();
- 
-    private MapConnections mapConnections;
+
+    [SerializeField] private MapConnections mapConnections;
     public Transform startNode;
     public Transform targetNode;
 
@@ -21,6 +21,11 @@ public class PathFinder : MonoBehaviour
     {
         mapConnections = GetComponent<MapConnections>();
 
+        //Debug.Log(nodes[0]);
+    }
+
+    private void Update()
+    {
         List<Transform> path = FindShortestPath(startNode, targetNode);
         if (path != null)
         {
