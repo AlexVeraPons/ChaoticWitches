@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -16,7 +14,6 @@ public class Player1Controller : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        stepAmount = 2;
         agent = GetComponent<NavMeshAgent>();
         pathFinder = GameObject.Find("MapConnections").GetComponent<PathFinder>();
 
@@ -26,6 +23,7 @@ public class Player1Controller : MonoBehaviour
     void Update()
     {
         SetNewTarget();
+        SetStepAmount();
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -39,11 +37,19 @@ public class Player1Controller : MonoBehaviour
                 startedMoving = true;
             }
 
-            if(collision.transform == pathFinder.nodes[stepAmount])
-            {
-                Debug.Log("end turn");
-            }
+            //TODO: make script for ending turn
+
+            //if(stepAmount < pathFinder.nodes.Count && stepAmount > pathFinder.nodes.Count) { stepAmount = 0; }
+            //else if (collision.transform == pathFinder.nodes[stepAmount])
+            //{
+
+            //}
         }
+    }
+
+    public void SetSteps(int amountOfSteps)
+    {
+
     }
 
     private void SetNewTarget()
@@ -54,6 +60,14 @@ public class Player1Controller : MonoBehaviour
         } else
         {
             return;
+        }
+    }
+
+    private void SetStepAmount()
+    {
+       if(Input.GetKeyDown(KeyCode.Space))
+        {
+            stepAmount = 2;
         }
     }
 }

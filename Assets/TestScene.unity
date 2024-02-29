@@ -534,7 +534,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   agent: {fileID: 0}
   pathFinder: {fileID: 69252440}
-  stepAmount: 0
+  stepAmount: -25
 --- !u!54 &590731643
 Rigidbody:
   m_ObjectHideFlags: 0
