@@ -9,7 +9,9 @@ public class GyroInput : MonoBehaviour
     public UnityEvent OnRightTilt;
     public UnityEvent OnLeftTilt;
 
-    [SerializeField] private float threshold = 0.5f; // Define threshold for right/left tilt it determines the velocity of the tilt needed
+
+    [SerializeField] private float _timeBeforeInput = 0.5f;
+    [SerializeField] private float _threshold = 0.5f; // Define threshold for right/left tilt it determines the velocity of the tilt needed
     private Image _image;
     [SerializeField] private Color _rightTiltColor;
     [SerializeField] private Color _leftTiltColor;
@@ -39,21 +41,13 @@ public class GyroInput : MonoBehaviour
 
     private IEnumerator StartProcessing()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.3f);
         _shouldBeProcessing = true;
     }
 
     void Update()
     {
         ProcessGyroInput();
-        PrintGyroInput();
-    }
-
-    private void PrintGyroInput()
-    {
-        if (Input.gyro.enabled)
-        {
-        }
     }
 
     void ProcessGyroInput()
@@ -70,24 +64,34 @@ public class GyroInput : MonoBehaviour
 
 
             if (!_shouldBeProcessing) { return; }
-            if (angularVelocityX > threshold)
+            if (angularVelocityX > _threshold)
             {
                 _image.color = _leftTiltColor;
-                OnLeftTilt.Invoke();
+                StartCoroutine(LeftDelay());
                 _shouldBeProcessing = false;
             }
-            else if (angularVelocityX < -threshold)
+            else if (angularVelocityX < -_threshold)
             {
                 _image.color = _rightTiltColor;
-                OnRightTilt.Invoke();
+                StartCoroutine(RightDelay());
                 _shouldBeProcessing = false;
             }
-            else
-            {
-                _image.color = _defaultColor;
-            }
-
         }
+    }
 
+    private IEnumerator LeftDelay()
+    {
+        yield return new WaitForSeconds(_timeBeforeInput);
+        OnLeftTilt.Invoke();
+        _shouldBeProcessing = true;
+        _image.color = _defaultColor;
+    }
+
+    private IEnumerator RightDelay()
+    {
+        yield return new WaitForSeconds(_timeBeforeInput);
+        OnRightTilt.Invoke();
+        _shouldBeProcessing = true;
+        _image.color = _defaultColor;
     }
 }

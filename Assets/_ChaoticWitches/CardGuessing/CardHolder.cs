@@ -22,13 +22,18 @@ public class CardHolder : MonoBehaviour
     public void GuessRight()
     {
         _cardManager.GuessedCard(true);
-        _cardManager.GetNewCard();
+        SetCard(_cardManager.GetNewCard());
     }
 
     public void GuessWrong()
     {
         _cardManager.GuessedCard(false);
-        _cardManager.GetNewCard();
+        SetCard(_cardManager.GetNewCard());
+    }
+
+    public void NewCard()
+    {
+        SetCard(_cardManager.GetNewCard());
     }
 
 }

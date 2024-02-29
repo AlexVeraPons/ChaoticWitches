@@ -18,4 +18,9 @@ public class TimerHud : MonoBehaviour
     {
         _timerText.text = _time.CurrentTime().ToString();
     }
+
+    public void DeleteTimerText()
+    {
+        _timerText.text = "";
+    }
 }

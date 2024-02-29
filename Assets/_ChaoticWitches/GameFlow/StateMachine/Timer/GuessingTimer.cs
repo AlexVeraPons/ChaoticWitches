@@ -7,17 +7,8 @@ public class GuessingTimer : MonoBehaviour, IgiveTime
     private float _currentTime = 0f;
 
     public UnityEvent OnGuessingTimerEnd; 
-    private void OnEnable()
-    {
-        GuessingCardsState.OnGuessingCardsStateEnter += StartTimer;
-    }
 
-    private void OnDisable()
-    {
-        GuessingCardsState.OnGuessingCardsStateEnter -= StartTimer;
-    }
-
-    private void StartTimer()
+    public void StartTimer()
     {
         StartCoroutine(StartCountdown());
     }

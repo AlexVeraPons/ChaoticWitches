@@ -27,7 +27,15 @@ public class CardManager : MonoBehaviour
     {
         if (_currentCard != null)
         {
-            _currentCard.state = state ? Card.CardState.Right : Card.CardState.Wrong;
+            if (state == true)
+            {
+                _currentCard.state = Card.CardState.Right;
+                _stepAmmountCalculator.AddStep();
+                return;
+            }
+
+            _currentCard.state = Card.CardState.Wrong;
+            return;
         }
         else
         {
@@ -35,18 +43,13 @@ public class CardManager : MonoBehaviour
         }
     }
 
-    public void GetNewCard()
+    public Card GetNewCard()
     {
         if (_availableCards.Length() > 0)
         {
             _currentCard = _availableCards.GetRandomCard();
-            _cardHolder.SetCard(_currentCard);
-
-            _stepAmmountCalculator.AddStep();
+            return _currentCard;
         }
-        else
-        {
-            Debug.LogError("No more cards to guess");
-        }
+        return null;
     }
 }
