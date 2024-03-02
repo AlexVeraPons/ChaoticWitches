@@ -1,14 +1,12 @@
-using System.Collections.Generic;
+using System;
+using UnityEngine;
 
-public class Team
+public class Team : MonoBehaviour
 {
-    private TeamIdentity _teamIdentity;
-    private Inventory _inventory;
+    public Action FinishedTurn;
 
-    public Team(TeamIdentity teamIdentity, Item[] items)
-    {
-        _teamIdentity = teamIdentity;
-        _inventory = new Inventory(items);
-    }
+    [SerializeField] private PotInventory _potInventory;
+    public PotInventory PotInventory { get { return _potInventory; } }
+    
+
 }
-
