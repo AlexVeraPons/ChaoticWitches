@@ -7,9 +7,11 @@ public class GuessingTimer : MonoBehaviour, IgiveTime
     private float _currentTime = 0f;
 
     public UnityEvent OnGuessingTimerEnd; 
+    public UnityEvent OnGuessingTimerStart;
 
     public void StartTimer()
     {
+        OnGuessingTimerStart?.Invoke();
         StartCoroutine(StartCountdown());
     }
 

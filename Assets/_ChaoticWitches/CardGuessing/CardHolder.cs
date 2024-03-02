@@ -22,13 +22,13 @@ public class CardHolder : MonoBehaviour
     public void GuessRight()
     {
         _cardManager.GuessedCard(true);
-        SetCard(_cardManager.GetNewCard());
+        NewCard();
     }
 
     public void GuessWrong()
     {
         _cardManager.GuessedCard(false);
-        SetCard(_cardManager.GetNewCard());
+        NewCard();
     }
 
     public void NewCard()
@@ -36,4 +36,14 @@ public class CardHolder : MonoBehaviour
         SetCard(_cardManager.GetNewCard());
     }
 
+    private void Update() {
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            GuessRight();
+        }
+        if (Input.GetKeyDown(KeyCode.J))
+        {
+            GuessWrong();
+        }
+    }
 }

@@ -6,6 +6,8 @@ public class CardManager : MonoBehaviour
     private CardList _availableCards;
     private Card _currentCard;
 
+
+    [SerializeField] private CardHistory _cardHistory;
     [SerializeField] private CardHolder _cardHolder;
     [SerializeField] private StepAmmountCalculator _stepAmmountCalculator;
 
@@ -45,6 +47,11 @@ public class CardManager : MonoBehaviour
 
     public Card GetNewCard()
     {
+        if (_currentCard != null)
+        {
+            _cardHistory.AddCardToHistory(_currentCard);
+        }
+
         if (_availableCards.Length() > 0)
         {
             _currentCard = _availableCards.GetRandomCard();
