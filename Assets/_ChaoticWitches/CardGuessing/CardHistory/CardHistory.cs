@@ -34,4 +34,9 @@ public class CardHistory : MonoBehaviour
 
         return cards;
     }
+
+    public void ClearHistory()
+    {
+        _cardsInHistory.Clear();
+    }
 }
