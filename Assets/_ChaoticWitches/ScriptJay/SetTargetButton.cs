@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class SetTargetButton : MonoBehaviour
 {
-    [SerializeField] private PathFinder pathFinder;
+    [SerializeField] private PathFinder pathFinderPlayer1;
+    [SerializeField] private PathFinder pathFinderPlayer2;
 
     [SerializeField] private Transform target8;
     [SerializeField] private Transform target3;
@@ -16,35 +17,30 @@ public class SetTargetButton : MonoBehaviour
 
     public void Start()
     {
-        pathFinder = GameObject.Find("MapConnections").GetComponent<PathFinder>();
+        pathFinderPlayer1 = GameObject.Find("Player1").GetComponent<PathFinder>();
+        pathFinderPlayer2 = GameObject.Find("Player2").GetComponent<PathFinder>();
     }
     public void SetTargetTo8()
     {
-        pathFinder.targetNode = target8;
+        pathFinderPlayer1.targetNode = target8;
+        pathFinderPlayer2.targetNode = target8;
     }
 
     public void SetTargetTo3()
     {
-        pathFinder.targetNode = target3;
+        pathFinderPlayer1.targetNode = target3;
+        pathFinderPlayer2.targetNode = target3;
     }
 
     public void SetTargetTo4()
     {
-        pathFinder.targetNode = target4;
+        pathFinderPlayer1.targetNode = target4;
+        pathFinderPlayer2.targetNode = target4;
     }
 
     public void SetTargetTo6()
     {
-        pathFinder.targetNode = target6;
-    }
-
-    public void SetStepsTo2()
-    {
-
-    }
-
-    public void SetStepsTo5()
-    {
-        
+        pathFinderPlayer1.targetNode = target6;
+        pathFinderPlayer2.targetNode = target6;
     }
 }

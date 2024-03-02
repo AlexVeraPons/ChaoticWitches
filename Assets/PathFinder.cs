@@ -19,7 +19,7 @@ public class PathFinder : MonoBehaviour
 
     private void Start()
     {
-        mapConnections = GetComponent<MapConnections>();
+        mapConnections = GameObject.Find("MapConnections").GetComponent<MapConnections>();
 
         //Debug.Log(nodes[0]);
     }
