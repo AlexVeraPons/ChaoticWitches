@@ -15,6 +15,8 @@ public class ItemDistributer : MonoBehaviour
 
     private void Start()
     {
+        SetAllItemsToNotGathered();
+
         int randomIndex = Random.Range(0, _itemPossibilities.Count);
 
         Item[] itemsTeam1 = _itemPossibilities[randomIndex].itemsTeam1.ToArray();
@@ -22,6 +24,21 @@ public class ItemDistributer : MonoBehaviour
         
         _teamManager.GetTeam1().PotInventory.AssignNeededItems(itemsTeam1);
         _teamManager.GetTeam2().PotInventory.AssignNeededItems(itemsTeam2);
+    }
+
+    private void SetAllItemsToNotGathered()
+    {
+        foreach (ItemPossibility itemPossibility in _itemPossibilities)
+        {
+            foreach (Item item in itemPossibility.itemsTeam1)
+            {
+                item.UnGather();
+            }
+            foreach (Item item in itemPossibility.itemsTeam2)
+            {
+                item.UnGather();
+            }
+        }
     }
 }
 

@@ -24,6 +24,11 @@ public class PotInventory : MonoBehaviour {
         return gatheredItems;
     }
 
+    public Item[] GetNeededItems()
+    {
+        return _neededItems;
+    }
+
     public void AssignNeededItems(Item[] items)
     {
         _neededItems = items;
