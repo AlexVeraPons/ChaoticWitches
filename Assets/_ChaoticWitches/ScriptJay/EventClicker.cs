@@ -24,7 +24,7 @@ public class EventClicker : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void OnPointerDown(PointerEventData eventData)
@@ -32,12 +32,12 @@ public class EventClicker : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
         if (gameObject.GetComponent<MeshRenderer>().material.name == "TilesPlayer1 (Instance)")
         {
             Debug.Log(" i have the same color");
-            player1.SetNewTarget(gameObject.transform);
+            player1.SetNewTarget(gameObject.transform.parent);
         }
 
         if(gameObject.GetComponent<MeshRenderer>().material.name == "TilesPlayer2 (Instance)")
         {
-            player2.SetNewTarget(gameObject.transform);
+            player2.SetNewTarget(gameObject.transform.parent);
         }
     }
 
