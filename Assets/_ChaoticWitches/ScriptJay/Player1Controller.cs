@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Rendering;
 
 public class Player1Controller : MonoBehaviour
 {
@@ -10,21 +11,36 @@ public class Player1Controller : MonoBehaviour
     [SerializeField] private Material tilesPlayer1;
     [SerializeField] private Material tilesPlayer2;
 
+    [SerializeField] private Player1Controller otherPlayer;
+
     private Transform destination;
+
+    public Transform swapLocation;
+    public bool haveSwapped = false;
 
     public bool startedMoving = false;
 
     public int stepAmount;
 
     public bool itIsMyTurn = false;
-    [SerializeField] private bool isPlayer1;
+    public bool isPlayer1;
+
+
 
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
         pathFinder = GetComponent<PathFinder>();
+        if (isPlayer1)
+        {
+            otherPlayer = GameObject.Find("Player2").GetComponent<Player1Controller>();
+        } else
+        {
+            otherPlayer = GameObject.Find("Player1").GetComponent<Player1Controller>();
+
+        }
     }
 
     // Update is called once per frame
@@ -53,6 +69,17 @@ public class Player1Controller : MonoBehaviour
                 EndTurn();
             }
         }
+
+        if (!haveSwapped && collision.gameObject.CompareTag("Nodes"))
+        {
+            swapLocation = collision.transform;
+        }
+
+        if (haveSwapped && collision.gameObject.transform == otherPlayer.swapLocation && collision.gameObject.CompareTag("Nodes"))
+        {
+            haveSwapped = false;
+            otherPlayer.haveSwapped = false;
+        }
     }
 
     public void SetSteps(int amountOfSteps)
@@ -73,7 +100,8 @@ public class Player1Controller : MonoBehaviour
             if (isPlayer1)
             {
                 pathFinder.nodes[stepAmount].gameObject.GetComponent<MeshRenderer>().material = tilesPlayer1;
-            } else if (!isPlayer1)
+            }
+            else if (!isPlayer1)
             {
                 pathFinder.nodes[stepAmount].gameObject.GetComponent<MeshRenderer>().material = tilesPlayer2;
             }
