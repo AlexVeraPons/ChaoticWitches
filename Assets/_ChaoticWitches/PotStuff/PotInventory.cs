@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class PotInventory : MonoBehaviour {
+public class PotInventory : MonoBehaviour
+{
     public UnityEvent OnPotInventoryFull;
     public Action<Item> OnItemGathered;
     public Action<Item> OnPoisonedPot;
@@ -37,7 +38,7 @@ public class PotInventory : MonoBehaviour {
     public void TryGatherItem(Item item)
     {
         Item itemInInventory = Array.Find(_neededItems, i => i == item);
-       
+
         if (itemInInventory != null && !itemInInventory.IsGathered())
         {
             itemInInventory.Gather();
@@ -51,7 +52,7 @@ public class PotInventory : MonoBehaviour {
 
     public void TryPoisionPot(out bool isPoisoned)
     {
-        if(IsPotInventoryGathered())
+        if (IsPotInventoryGathered())
         {
             isPoisoned = _isPoisoned;
             return;
@@ -87,5 +88,20 @@ public class PotInventory : MonoBehaviour {
         }
 
         return true;
+    }
+
+    public bool IsPotPoisoned()
+    {
+        return _isPoisoned;
+    }
+
+    public Item GetItemNeededForCure()
+    {
+        if (_isPoisoned)
+        {
+            return _itemNeededForCure;
+        }
+
+        return null;
     }
 }

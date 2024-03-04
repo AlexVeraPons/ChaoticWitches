@@ -35,4 +35,12 @@ public class UIItem : MonoBehaviour
     {
         OnItemClicked?.Invoke();
     }
+
+    public void ClearItem()
+    {
+        _item.OnGathered -= OnItemGathered;
+        _item = null;
+        _image.sprite = null;
+        _image.color = _notGatheredColor;
+    }
 }
