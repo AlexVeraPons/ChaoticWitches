@@ -1,16 +1,12 @@
 using StateMachine;
 using UnityEngine;
 
-[RequireComponent(typeof(GameFlow))]
+[RequireComponent(typeof(GameStateMachine))]
 public class GameState : BaseState
 {
-    protected GameFlow gameFlow;
+    protected GameStateMachine stateMachine;
     private void Awake()
     {
-        gameFlow = GetComponent<GameFlow>();
-    }
-    public void StartGuessingCardsState()
-    {
-        gameFlow.SwitchState(gameFlow.GuessingCardsState);
+        stateMachine = GetComponent<GameStateMachine>();
     }
 }
