@@ -6,8 +6,6 @@ public class GuessingButton : MonoBehaviour
     [SerializeField] private GameObject _cardCanvas;
     [SerializeField] private GameObject _otherButton;
 
-    public static Action OnGuessingButtonEnter;
-    public static Action OnGuessingButtonExit;
 
     private void Start()
     {
@@ -17,7 +15,6 @@ public class GuessingButton : MonoBehaviour
     public void OnGuessingButtonEnterClicked()
     {
         _cardCanvas.SetActive(true);
-        OnGuessingButtonEnter?.Invoke();
         this.gameObject.SetActive(false);
     }
 

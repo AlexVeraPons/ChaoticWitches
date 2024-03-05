@@ -2,6 +2,25 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEditor;
+
+public static class AddEventClickerScriptToChildrenOfSelection
+{
+    [MenuItem("Auto/Add Event Clicker Script To Children Of Selection")]
+    private static void AddEventClickerScriptToChildren()
+    {
+        GameObject[] selection = Selection.gameObjects;
+        foreach (GameObject go in selection)
+        {
+            var child = go.transform.GetChild(0);
+            if (child.GetComponent<EventClicker>() == null)
+            {
+                child.gameObject.AddComponent<EventClicker>();
+            }
+        }
+    }
+}
+
+
 public static class DeleteMissingScripts
 {
     [MenuItem("Auto/Remove Missing Scripts Recursively Visit Prefabs")]

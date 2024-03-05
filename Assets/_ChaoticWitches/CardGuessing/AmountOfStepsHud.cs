@@ -20,6 +20,10 @@ public class AmountOfStepsHud : MonoBehaviour
     {
         _stepsText = GetComponent<TextMeshProUGUI>();
     }
+
+    private void Start() {
+        _stepsText.text = "";
+    }
     private void LogAmmountOfSteps(int obj)
     {
         _ammountOfSteps = obj;
@@ -28,5 +32,6 @@ public class AmountOfStepsHud : MonoBehaviour
     public void ShowAmmountOfSteps()
     {
         _stepsText.text = _textToShow;
+
     }
 }

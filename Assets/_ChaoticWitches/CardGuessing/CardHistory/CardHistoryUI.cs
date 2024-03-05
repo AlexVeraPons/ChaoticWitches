@@ -12,6 +12,7 @@ public class CardHistoryUI : MonoBehaviour
     private int _currentRow = 0;
     public void ShowCards()
     {
+        Debug.Log("Showing cards in history.");
         _cardsInHistory = _cardHistory.OrganizeCardsInColumnarGrid(_cardsToShowAtOnce);
 
         InstantiateCards();
@@ -35,11 +36,13 @@ public class CardHistoryUI : MonoBehaviour
 
             if (_cardsInHistory[_currentRow, j].state == Card.CardState.Right)
             {
-                image.color = Color.green;
+                //slightly green
+                image.color = new Color(0.5f, 1, 0.5f);
             }
             else
             {
-                image.color = Color.red;
+                //slightly red
+                image.color = new Color(1, 0.5f, 0.5f);
             }
         }
     }

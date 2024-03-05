@@ -59,10 +59,6 @@ public class GyroInput : MonoBehaviour
             float angularVelocityX = (Input.gyro.attitude.x - _lastZAngleX) / Time.deltaTime;
             _lastZAngleX = Input.gyro.attitude.x;
 
-            // Update the _lastXAngle for the next frame
-            Debug.Log("Angular Velocity X: " + angularVelocityX);
-
-
             if (!_shouldBeProcessing) { return; }
             if (angularVelocityX > _threshold)
             {

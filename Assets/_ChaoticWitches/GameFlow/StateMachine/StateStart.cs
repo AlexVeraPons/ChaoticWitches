@@ -8,8 +8,6 @@ public class StateStart : GameState
     {
         base.OnEnter();
         StartCoroutine(ChangeStateToPlayState());
-
-        Debug.Log("Text");
     }
 
     private IEnumerator ChangeStateToPlayState()

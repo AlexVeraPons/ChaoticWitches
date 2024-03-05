@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class CardHolder : MonoBehaviour
 {
-    const string stringBeforeName = "Your word is:";
+    const string stringBeforeName = ""; // in case we want to add something before the card name
      private Card _card;
     [SerializeField] private TextMeshProUGUI _cardName;
     CardManager _cardManager;

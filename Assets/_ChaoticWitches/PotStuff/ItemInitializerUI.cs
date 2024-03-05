@@ -29,6 +29,7 @@ public class ItemInitializerUI : MonoBehaviour
 
     public void ReInitializeItems()
     {
+        Debug.Log("Reinitializing items!");
         foreach (Transform child in transform)
         {
             Destroy(child.gameObject);
