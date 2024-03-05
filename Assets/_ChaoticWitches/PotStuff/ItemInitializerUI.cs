@@ -9,11 +9,13 @@ public class ItemInitializerUI : MonoBehaviour
 
     private void OnEnable()
     {
+        PlayingState.OnEnterState += ReInitializeItems;
         PlayingState.OnTurnChanged += OnTurnChanged;
     }
 
     private void OnDisable()
     {
+        PlayingState.OnEnterState -= ReInitializeItems;
         PlayingState.OnTurnChanged -= OnTurnChanged;
     }
 
@@ -25,7 +27,7 @@ public class ItemInitializerUI : MonoBehaviour
         ReInitializeItems();
     }
 
-    private void ReInitializeItems()
+    public void ReInitializeItems()
     {
         foreach (Transform child in transform)
         {

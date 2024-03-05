@@ -9,7 +9,6 @@ public class UIItem : MonoBehaviour
     public Action OnItemClicked;
     private   Item _item;
     private Image _image;
-
     private void Awake()
     {
         _image = GetComponent<Image>();
@@ -19,7 +18,10 @@ public class UIItem : MonoBehaviour
     {
         _item = item;
         _item.OnGathered += OnItemGathered;
+
+        Debug.Log("item name is " + item.name);
         
+        Debug.Log("sprite name is " + item.GetSprite().name);
         _image.sprite = item.GetSprite();
 
         _image.color = item.IsGathered() ? _gatheredColor : _notGatheredColor;
@@ -27,7 +29,6 @@ public class UIItem : MonoBehaviour
 
     private void OnItemGathered()
     {
-        Debug.Log("Item gathered!");
         _image.color = _gatheredColor;
     }
 

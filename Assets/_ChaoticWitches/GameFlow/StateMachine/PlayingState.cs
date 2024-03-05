@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class PlayingState : GameState {
     public static Action<Turn> OnTurnChanged;
+    public static Action OnEnterState;
     public enum Turn
     {
         Team1,
@@ -18,5 +19,11 @@ public class PlayingState : GameState {
     public Turn GetCurrentTurn()
     {
         return _currentTurn;
+    }
+
+    public override void OnEnter()
+    {
+        base.OnEnter();
+        OnEnterState?.Invoke();
     }
 }
