@@ -36,7 +36,8 @@ public class Player1Controller : MonoBehaviour
         if (isPlayer1)
         {
             otherPlayer = GameObject.Find("Player2").GetComponent<Player1Controller>();
-        } else
+        }
+        else
         {
             otherPlayer = GameObject.Find("Player1").GetComponent<Player1Controller>();
 
@@ -99,11 +100,25 @@ public class Player1Controller : MonoBehaviour
         {
             if (isPlayer1)
             {
-                pathFinder.nodes[stepAmount].gameObject.GetComponent<MeshRenderer>().material = tilesPlayer1;
+                if (pathFinder.nodes.Count > 1)
+                {
+                    pathFinder.nodes[stepAmount].gameObject.GetComponent<MeshRenderer>().material = tilesPlayer1;
+                }
+                else
+                {
+                    SelectdTargetReached();
+                }
             }
             else if (!isPlayer1)
             {
-                pathFinder.nodes[stepAmount].gameObject.GetComponent<MeshRenderer>().material = tilesPlayer2;
+                if (pathFinder.nodes.Count > 1)
+                {
+                    pathFinder.nodes[stepAmount].gameObject.GetComponent<MeshRenderer>().material = tilesPlayer2;
+                }
+                else
+                {
+                    SelectdTargetReached();
+                }
             }
         }
     }
@@ -119,5 +134,13 @@ public class Player1Controller : MonoBehaviour
     private void EndTurn()
     {
         Debug.Log("end turn");
+    }
+
+    private void SelectdTargetReached()
+    {
+        //TODO: code to execute when the player has reached the item they chose in the UI
+
+        Debug.Log("destination reached");
+        return;
     }
 }
