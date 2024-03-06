@@ -1,7 +1,7 @@
 using System;
 using UnityEditor;
 using UnityEngine;
-
+#if UNITY_EDITOR    
 public class CardImporterer : EditorWindow
 {
     private string longString = "Paste your cards here";
@@ -79,3 +79,5 @@ public class CardImporterer : EditorWindow
         AssetDatabase.Refresh();
     }
 }
+
+#endif

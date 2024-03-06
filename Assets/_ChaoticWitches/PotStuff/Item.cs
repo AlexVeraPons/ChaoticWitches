@@ -21,7 +21,6 @@ public class Item : ScriptableObject, ICanBeGathered
 
     public void Gather()
     {
-        Debug.Log("I have been gathered!" + name);
         _itemStatus = ItemStatus.Gathered;
         OnGathered?.Invoke();
     }
