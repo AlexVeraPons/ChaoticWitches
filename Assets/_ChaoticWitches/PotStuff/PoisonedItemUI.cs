@@ -17,9 +17,6 @@ public class PoisonedItemUI : MonoBehaviour {
         PlayingState.OnTurnChanged -= OnTurnChanged;
     }
 
-    private void Start() {
-    }
-
     private void OnTurnChanged(PlayingState.Turn turn)
     {
         ReloadPoisonedItem();

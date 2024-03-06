@@ -4,9 +4,11 @@ using UnityEngine.UI;
 
 public class UIItem : MonoBehaviour
 {
+    public Action OnItemClicked;
+    public Action<Transform> OnItemClickedNode;
+
     [SerializeField] private Color _notGatheredColor;
     private Color _gatheredColor = Color.white;
-    public Action OnItemClicked;
     private   Item _item;
     private Image _image;
     private void Awake()
@@ -35,6 +37,9 @@ public class UIItem : MonoBehaviour
     public void OnClick()
     {
         OnItemClicked?.Invoke();
+
+        Transform transformOfItem = LocationOfItemsManager.Instance.GetLocationOfItem(_item);
+        OnItemClickedNode?.Invoke(transformOfItem);
     }
 
     public void ClearItem()
