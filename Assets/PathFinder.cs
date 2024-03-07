@@ -33,7 +33,7 @@ public class PathFinder : MonoBehaviour
         }
         else
         {
-            Debug.Log("Path not found");
+            //Debug.Log("Path not found");
         }
     }
 
