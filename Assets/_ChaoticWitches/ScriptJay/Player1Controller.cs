@@ -57,6 +57,8 @@ public class Player1Controller : MonoBehaviour
 
     private bool isOriginalNodeMaterialSet = false;
 
+    public bool canMultiplySteps = false;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -246,6 +248,7 @@ public class Player1Controller : MonoBehaviour
         isOriginalNodeMaterialSet = false;
         inBetweenSteps.Clear();
         pathFinder.nodes.Clear();
+        stepAmount = 0;
         destinationIndex = 0;
         elapsedTime = 0;
 
