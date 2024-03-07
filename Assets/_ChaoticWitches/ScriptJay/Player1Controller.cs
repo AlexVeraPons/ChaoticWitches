@@ -16,8 +16,8 @@ public class Player1Controller : MonoBehaviour
 
     [SerializeField] private Player1Controller otherPlayer;
 
+    [SerializeField]private Transform gateLocation;
     public Transform destination;
-
     public Transform swapLocation;
     public bool haveSwapped = false;
 
@@ -259,6 +259,13 @@ public class Player1Controller : MonoBehaviour
     public void SetSteps(int amountOfSteps)
     {
         stepAmount = amountOfSteps;
+    }
+
+    public void SetTargetToGate()
+    {
+        
+
+        pathFinder.targetNode = gateLocation;
     }
 
     private void ResetTargetMaterial()
