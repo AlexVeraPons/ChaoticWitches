@@ -51,13 +51,15 @@ public class Abilities : MonoBehaviour
         {
             if(!player1HasUsedStepMult)
             {
-
+                player1HasUsedStepMult = true;
+                player1.canMultiplySteps = true;
             }
         } else
         {
             if (!player2HasUsedStepMult)
             {
-
+                player2HasUsedStepMult = true;
+                player2.canMultiplySteps = true;
             }
         }
     }

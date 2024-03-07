@@ -15,7 +15,6 @@ public class SetTargetTesting : MonoBehaviour
             {
                 player1.targetIsSet = true;
                 player1.SetTarget(newTarget);
-
             }
         }
         else if(player2.itIsMyTurn)
@@ -24,7 +23,6 @@ public class SetTargetTesting : MonoBehaviour
             {
                 player2.targetIsSet = true;
                 player2.SetTarget(newTarget);
-
             }
         }
     }
