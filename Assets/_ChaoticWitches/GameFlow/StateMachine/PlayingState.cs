@@ -11,6 +11,9 @@ public class PlayingState : GameState {
     }
 
     private Turn _currentTurn;
+    public void OnEnable() {
+      Player1Controller.OnTurnEnded += ChangeTurn;
+    }
 
     public void Start()
     {

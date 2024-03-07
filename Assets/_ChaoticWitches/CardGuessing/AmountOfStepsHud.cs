@@ -32,6 +32,5 @@ public class AmountOfStepsHud : MonoBehaviour
     public void ShowAmmountOfSteps()
     {
         _stepsText.text = _textToShow;
-
     }
 }

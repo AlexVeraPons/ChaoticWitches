@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class TeamManager : MonoBehaviour
@@ -10,7 +11,6 @@ public class TeamManager : MonoBehaviour
     #region Singleton
     public static TeamManager Instance { get; private set; }
     void Awake()
-
     {
         transform.parent = null;
         if (Instance == null)
@@ -24,6 +24,14 @@ public class TeamManager : MonoBehaviour
     #endregion
 
 
+    private void OnEnable() {
+        PlayingState.OnTurnChanged += OnTurnChanged;
+    }
+
+    private void OnTurnChanged(PlayingState.Turn turn)
+    {
+        GetCurrentTeam().Player1Controller.itIsMyTurn = true;
+    }
 
     public Team GetCurrentTeam()
     {

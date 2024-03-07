@@ -7,6 +7,15 @@ public class StepAmmountCalculator : MonoBehaviour
     public static Action <int> OnAmmountOfStepsChanged;
     private int _stepAmmount = 0;
     
+    private void OnEnable() {
+        PlayingState.OnTurnChanged += ResetSteps;
+    }
+
+    private void ResetSteps(PlayingState.Turn turn)
+    {
+        ResetSteps();
+    }
+
     public void AddStep()
     {
         _stepAmmount++;

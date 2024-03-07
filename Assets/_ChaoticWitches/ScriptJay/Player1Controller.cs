@@ -7,6 +7,8 @@ using UnityEngine.Rendering;
 
 public class Player1Controller : MonoBehaviour
 {
+    public static Action OnTurnEnded;
+
     [SerializeField] private PathFinder pathFinder;
     [SerializeField] private LayerMask Nodes;
 
@@ -246,6 +248,8 @@ public class Player1Controller : MonoBehaviour
         pathFinder.nodes.Clear();
         destinationIndex = 0;
         elapsedTime = 0;
+
+        Player1Controller.OnTurnEnded?.Invoke();
     }
 
 

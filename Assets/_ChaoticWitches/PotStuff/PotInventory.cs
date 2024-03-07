@@ -110,4 +110,15 @@ public class PotInventory : MonoBehaviour
 
         return null;
     }
+
+    public bool CheckIfAllItemsGathered()
+    {
+        if (IsPotInventoryGathered())
+        {
+            OnPotInventoryFull?.Invoke();
+            return true;
+        }
+
+        return false;
+    }
 }

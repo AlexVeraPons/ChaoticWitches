@@ -38,7 +38,7 @@ public class ItemInitializerUI : MonoBehaviour
 
         foreach (Item item in items)
         {
-            GameObject UIitem = Instantiate(_UIitemPrefab, transform);
+            GameObject UIitem = Instantiate(_UIitemPrefab, transform.parent);
             UIItem uiItem = UIitem.GetComponent<UIItem>();
             uiItem.SetItem(item);
         }

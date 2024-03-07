@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class UIItem : MonoBehaviour
 {
-    public Action<ItemLocation> OnItemClicked;
+    public static Action<ItemLocation> OnItemClicked;
     [SerializeField] private bool _changesColor = true;
     public Action<Transform> OnItemClickedNode;
     [SerializeField] private Color _notGatheredColor;
