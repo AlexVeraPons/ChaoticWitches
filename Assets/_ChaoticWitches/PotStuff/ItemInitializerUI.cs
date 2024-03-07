@@ -2,12 +2,11 @@ using UnityEngine;
 
 public class ItemInitializerUI : MonoBehaviour
 {
-    [SerializeField] private TeamManager _teamManager;
     [SerializeField] private GameObject _UIitemPrefab;
     [SerializeField] private GameObject _gameObjectContainer; 
     [SerializeField] private GameObject _itemToIgnore;
 
-    private PotInventory _currentPotInventory => _teamManager.GetCurrentTeam().PotInventory;
+    private PotInventory _currentPotInventory => TeamManager.Instance.GetCurrentTeam().PotInventory;
 
     private void OnEnable()
     {
