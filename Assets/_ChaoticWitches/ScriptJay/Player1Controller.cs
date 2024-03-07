@@ -267,8 +267,6 @@ public class Player1Controller : MonoBehaviour
 
     public void SetTargetToGate()
     {
-        
-
         pathFinder.targetNode = gateLocation;
     }
 

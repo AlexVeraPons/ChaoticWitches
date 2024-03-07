@@ -33,4 +33,9 @@ public class AmountOfStepsHud : MonoBehaviour
     {
         _stepsText.text = _textToShow;
     }
+
+    public void HideAmmountOfSteps()
+    {
+        _stepsText.text = "";
+    }
 }

@@ -9,15 +9,16 @@ public class UIItem : MonoBehaviour
     public Action<Transform> OnItemClickedNode;
     [SerializeField] private Color _notGatheredColor;
     private Color _gatheredColor = Color.white;
-    [SerializeField] private  Item _item;
+    [SerializeField] private Item _item;
     private Image _image;
     private void Awake()
     {
         _image = GetComponent<Image>();
-        _image.color.a.Equals(0);   
+        _image.color.a.Equals(0);
     }
 
-    private void Start() {
+    private void Start()
+    {
         if (_item != null)
         {
             SetItem(_item);
@@ -58,6 +59,12 @@ public class UIItem : MonoBehaviour
         _image.sprite = null;
         _image.color = _notGatheredColor;
 
-        if (_item != null) {_item.OnGathered -= OnItemGathered;}
+        if (_item != null) { _item.OnGathered -= OnItemGathered; }
+    }
+    
+
+    public Item GetItem()
+    {
+        return _item;
     }
 }

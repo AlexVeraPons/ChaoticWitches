@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/_ChaoticWitches/Scenes/ARFUNCIONALITY.unity
+    guid: 1a9a314828430f04f8bcc42345558456
+  - enabled: 0
     path: Assets/_ChaoticWitches/Scenes/ARScene.unity
     guid: 811507b8a9e9d9942aaec950599db369
   m_configObjects: {}

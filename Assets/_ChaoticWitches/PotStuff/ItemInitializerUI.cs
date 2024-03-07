@@ -4,6 +4,8 @@ public class ItemInitializerUI : MonoBehaviour
 {
     [SerializeField] private TeamManager _teamManager;
     [SerializeField] private GameObject _UIitemPrefab;
+    [SerializeField] private GameObject _gameObjectContainer; 
+    [SerializeField] private GameObject _itemToIgnore;
 
     private PotInventory _currentPotInventory => _teamManager.GetCurrentTeam().PotInventory;
 
@@ -29,8 +31,9 @@ public class ItemInitializerUI : MonoBehaviour
 
     public void ReInitializeItems()
     {
-        foreach (Transform child in transform)
+        foreach (Transform child in _gameObjectContainer.transform)
         {
+            if (child.gameObject == _itemToIgnore) continue;
             Destroy(child.gameObject);
         }
 
@@ -38,7 +41,7 @@ public class ItemInitializerUI : MonoBehaviour
 
         foreach (Item item in items)
         {
-            GameObject UIitem = Instantiate(_UIitemPrefab, transform.parent);
+            GameObject UIitem = Instantiate(_UIitemPrefab, _gameObjectContainer.transform);
             UIItem uiItem = UIitem.GetComponent<UIItem>();
             uiItem.SetItem(item);
         }
