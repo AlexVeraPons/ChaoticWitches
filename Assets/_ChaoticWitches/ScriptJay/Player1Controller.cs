@@ -1,19 +1,22 @@
+using System;
+using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Rendering;
 
 public class Player1Controller : MonoBehaviour
 {
-    [SerializeField] private NavMeshAgent agent;
     [SerializeField] private PathFinder pathFinder;
     [SerializeField] private LayerMask Nodes;
 
-    [SerializeField] private Material tilesPlayer1;
-    [SerializeField] private Material tilesPlayer2;
+    [SerializeField] private Material nodesPlayer1;
+    [SerializeField] private Material nodesPlayer2;
+    [SerializeField] private Material originalNodeMaterial;
 
     [SerializeField] private Player1Controller otherPlayer;
 
-    private Transform destination;
+    public Transform destination;
 
     public Transform swapLocation;
     public bool haveSwapped = false;
@@ -21,17 +24,40 @@ public class Player1Controller : MonoBehaviour
     public bool startedMoving = false;
 
     public int stepAmount;
+    private int oldStepAmmount;
+    private int leftOverSteps;
 
     public bool itIsMyTurn = false;
     public bool isPlayer1;
 
+    private int currentIndex = 1;
+    private int newCurrentIndex;
 
+    public bool targetIsSet = false;
 
+    public List<Transform> inBetweenSteps = new List<Transform>();
+
+    public bool hasPressed = false;
+
+    private bool listIsFilled = false;
+
+    private int destinationIndex = 0;
+    private Transform begin;
+    private Transform end;
+
+    [SerializeField] private float speed;
+    private float timeToTarget;
+    private float elapsedTime;
+
+    public bool canSetNewTarget = true;
+
+    private bool isItemReachable = false;
+
+    private bool isOriginalNodeMaterialSet = false;
 
     // Start is called before the first frame update
     void Awake()
     {
-        agent = GetComponent<NavMeshAgent>();
         pathFinder = GetComponent<PathFinder>();
         if (isPlayer1)
         {
@@ -45,42 +71,189 @@ public class Player1Controller : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if (itIsMyTurn)
         {
-            SetStepAmount();
             SetTargetColor();
+            if (listIsFilled)
+            {
+                MovePlayer();
+            }
         }
     }
 
-    private void OnCollisionStay(Collision collision)
+    private void OnTriggerStay(Collider collision)
     {
-        if (!startedMoving && itIsMyTurn)
+        if (collision.gameObject.CompareTag("Nodes"))
         {
-            if (collision.gameObject.CompareTag("Nodes"))
+            if (!startedMoving && itIsMyTurn)
             {
-
                 pathFinder.startNode = collision.transform;
                 startedMoving = true;
             }
 
-            if (collision.gameObject.transform == destination)
+            if (!haveSwapped)
             {
-                EndTurn();
+                swapLocation = collision.transform;
+            }
+
+            if (haveSwapped && collision.gameObject.transform == otherPlayer.swapLocation)
+            {
+                haveSwapped = false;
+                otherPlayer.haveSwapped = false;
             }
         }
+    }
 
-        if (!haveSwapped && collision.gameObject.CompareTag("Nodes"))
+    public void FillInBetweenList()
+    {
+        for (int i = 0; i <= stepAmount; i++)
         {
-            swapLocation = collision.transform;
+            inBetweenSteps.Add(pathFinder.nodes[i].parent);
+            Debug.Log(pathFinder.nodes[i].parent);
+        }
+        hasPressed = true;
+        listIsFilled = true;
+    }
+
+    private void SetTargetColor()
+    {
+
+        if (stepAmount >= pathFinder.nodes.Count - 1 && targetIsSet && !isItemReachable)
+        {
+            isItemReachable = true;
+            oldStepAmmount = stepAmount;
+            stepAmount = pathFinder.nodes.Count - 1;
+            leftOverSteps = oldStepAmmount - stepAmount;
         }
 
-        if (haveSwapped && collision.gameObject.transform == otherPlayer.swapLocation && collision.gameObject.CompareTag("Nodes"))
+        if (stepAmount > 0 && pathFinder.nodes.Count > stepAmount)
         {
-            haveSwapped = false;
-            otherPlayer.haveSwapped = false;
+            if (!isOriginalNodeMaterialSet)
+            {
+                originalNodeMaterial = pathFinder.nodes[stepAmount].gameObject.GetComponent<MeshRenderer>().material;
+                isOriginalNodeMaterialSet = true;
+            }
+
+            if (isPlayer1)
+            {
+                if (pathFinder.nodes.Count > 1)
+                {
+                    pathFinder.nodes[stepAmount].gameObject.GetComponent<MeshRenderer>().material = nodesPlayer1;
+                }
+                else if(stepAmount >= pathFinder.nodes.Count  - 1)
+                {
+                    pathFinder.nodes[pathFinder.nodes.Count].GetComponent<MeshRenderer>().material = nodesPlayer1;
+                }
+            }
+            else if (!isPlayer1)
+            {
+                if (pathFinder.nodes.Count > 1)
+                {
+                    pathFinder.nodes[stepAmount].gameObject.GetComponent<MeshRenderer>().material = nodesPlayer2;
+                }
+                else if (stepAmount >= pathFinder.nodes.Count - 1)
+                {
+                    pathFinder.nodes[pathFinder.nodes.Count].GetComponent<MeshRenderer>().material = nodesPlayer2;
+                }
+            }
         }
+    }
+
+    public void SetNextTargetInList()
+    {
+        if (stepAmount == 0)
+        {
+            Debug.Log(stepAmount);
+            return;
+        }
+
+        if (destinationIndex != inBetweenSteps.Count - 1)
+        {
+            destinationIndex++;
+            begin = inBetweenSteps[destinationIndex - 1].transform;
+            end = inBetweenSteps[destinationIndex].transform;
+
+            elapsedTime = 0f;
+
+            float distanceToTarget = Vector3.Distance(begin.position, end.position);
+            timeToTarget = distanceToTarget / speed;
+        }
+        else if (destinationIndex == inBetweenSteps.Count - 1 && leftOverSteps == 0)
+        {
+            EndTurn();
+        }
+        else
+        {
+            SelectedTargetReached();
+        }
+    }
+
+    private void MovePlayer()
+    {
+        elapsedTime += Time.deltaTime;
+
+        float elapsedPercentage = elapsedTime / timeToTarget;
+        elapsedPercentage = Mathf.SmoothStep(0, 1, elapsedPercentage);
+        Vector3 beginLockedY = new Vector3(begin.position.x, gameObject.transform.position.y, begin.position.z);
+        Vector3 endLockedY = new Vector3(end.position.x, gameObject.transform.position.y, end.position.z);
+
+        transform.position = Vector3.Lerp(beginLockedY, endLockedY, elapsedPercentage);
+
+        if (elapsedPercentage >= 1)
+        {
+            SetNextTargetInList();
+        }
+    }
+
+    private void SelectedTargetReached()
+    {
+        //TODO: code to execute when the player has reached the item they chose in the UI
+
+        Debug.Log("destination reached");
+        ResetTargetMaterial();
+        hasPressed = false;
+        startedMoving = false;
+        destination = null;
+        listIsFilled = false;
+        canSetNewTarget = true;
+        targetIsSet = false;
+        isItemReachable = false;
+        inBetweenSteps.Clear();
+        pathFinder.nodes.Clear();
+        stepAmount = leftOverSteps;
+        leftOverSteps = 0;
+        oldStepAmmount = 0;
+        destinationIndex = 0;
+        elapsedTime = 0;
+    }
+
+    private void EndTurn()
+    {
+        //TODO: code to execute when the player has reached the final tile they could reach with their steps
+
+        Debug.Log("end turn");
+        ResetTargetMaterial();
+        itIsMyTurn = false;
+        otherPlayer.itIsMyTurn = true;
+        hasPressed = false;
+        startedMoving = false;
+        destination = null;
+        listIsFilled = false;
+        isOriginalNodeMaterialSet = false;
+        inBetweenSteps.Clear();
+        pathFinder.nodes.Clear();
+        destinationIndex = 0;
+        elapsedTime = 0;
+    }
+
+
+
+    public void SetTarget(Transform newTarget)
+    {
+        canSetNewTarget = false;
+        pathFinder.targetNode = newTarget;
     }
 
     public void SetSteps(int amountOfSteps)
@@ -88,59 +261,8 @@ public class Player1Controller : MonoBehaviour
         stepAmount = amountOfSteps;
     }
 
-    public void SetNewTarget(Transform targetNode)
+    private void ResetTargetMaterial()
     {
-        agent.SetDestination(targetNode.transform.position);
-        destination = targetNode;
-    }
-
-    private void SetTargetColor()
-    {
-        if (stepAmount > 0 && pathFinder.nodes.Count >= stepAmount)
-        {
-            if (isPlayer1)
-            {
-                if (pathFinder.nodes.Count > 1)
-                {
-                    pathFinder.nodes[stepAmount].gameObject.GetComponent<MeshRenderer>().material = tilesPlayer1;
-                }
-                else
-                {
-                    SelectdTargetReached();
-                }
-            }
-            else if (!isPlayer1)
-            {
-                if (pathFinder.nodes.Count > 1)
-                {
-                    pathFinder.nodes[stepAmount].gameObject.GetComponent<MeshRenderer>().material = tilesPlayer2;
-                }
-                else
-                {
-                    SelectdTargetReached();
-                }
-            }
-        }
-    }
-
-    private void SetStepAmount()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            stepAmount = 1;
-        }
-    }
-
-    private void EndTurn()
-    {
-        Debug.Log("end turn");
-    }
-
-    private void SelectdTargetReached()
-    {
-        //TODO: code to execute when the player has reached the item they chose in the UI
-
-        Debug.Log("destination reached");
-        return;
+        pathFinder.nodes[stepAmount].gameObject.GetComponent<MeshRenderer>().material = originalNodeMaterial;
     }
 }

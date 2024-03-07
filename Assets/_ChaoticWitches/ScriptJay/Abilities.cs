@@ -16,8 +16,8 @@ public class Abilities : MonoBehaviour
 
     public void SwitchPlayers()
     {
-        player1.SetNewTarget(player2.swapLocation);
-        player2.SetNewTarget(player1.swapLocation);
+        //player1.SetNewTarget(player2.swapLocation);
+        //player2.SetNewTarget(player1.swapLocation);
         player1.haveSwapped = true;
         player2.haveSwapped = true;
     }
