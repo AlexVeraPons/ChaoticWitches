@@ -4,16 +4,24 @@ using UnityEngine.UI;
 
 public class UIItem : MonoBehaviour
 {
-    public Action OnItemClicked;
+    public Action<ItemLocation> OnItemClicked;
+    [SerializeField] private bool _changesColor = true;
     public Action<Transform> OnItemClickedNode;
-
     [SerializeField] private Color _notGatheredColor;
     private Color _gatheredColor = Color.white;
-    private   Item _item;
+    [SerializeField] private  Item _item;
     private Image _image;
     private void Awake()
     {
         _image = GetComponent<Image>();
+        _image.color.a.Equals(0);   
+    }
+
+    private void Start() {
+        if (_item != null)
+        {
+            SetItem(_item);
+        }
     }
 
     public void SetItem(Item item)
@@ -21,12 +29,16 @@ public class UIItem : MonoBehaviour
         _item = item;
         _item.OnGathered += OnItemGathered;
 
-        Debug.Log("item name is " + item.name);
-        
-        Debug.Log("sprite name is " + item.GetSprite().name);
         _image.sprite = item.GetSprite();
 
-        _image.color = item.IsGathered() ? _gatheredColor : _notGatheredColor;
+        if (_changesColor)
+        {
+            _image.color = item.IsGathered() ? _gatheredColor : _notGatheredColor;
+        }
+        else
+        {
+            _image.color = Color.white;
+        }
     }
 
     private void OnItemGathered()
@@ -36,17 +48,16 @@ public class UIItem : MonoBehaviour
 
     public void OnClick()
     {
-        OnItemClicked?.Invoke();
-
-        Transform transformOfItem = LocationOfItemsManager.Instance.GetLocationOfItem(_item);
-        OnItemClickedNode?.Invoke(transformOfItem);
+        ItemLocation itemLocation = LocationOfItemsManager.Instance.GetItemLocation(_item);
+        OnItemClicked?.Invoke(itemLocation);
     }
 
     public void ClearItem()
     {
-        _item.OnGathered -= OnItemGathered;
         _item = null;
         _image.sprite = null;
         _image.color = _notGatheredColor;
+
+        if (_item != null) {_item.OnGathered -= OnItemGathered;}
     }
 }

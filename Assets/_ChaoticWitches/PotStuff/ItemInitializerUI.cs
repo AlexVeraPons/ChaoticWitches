@@ -29,18 +29,15 @@ public class ItemInitializerUI : MonoBehaviour
 
     public void ReInitializeItems()
     {
-        Debug.Log("Reinitializing items!");
         foreach (Transform child in transform)
         {
             Destroy(child.gameObject);
         }
 
         Item[] items = _currentPotInventory.GetNeededItems();
-        Debug.Log("item ammount is " + items.Length);
 
         foreach (Item item in items)
         {
-            Debug.Log("Item is " + item.ToString());
             GameObject UIitem = Instantiate(_UIitemPrefab, transform);
             UIItem uiItem = UIitem.GetComponent<UIItem>();
             uiItem.SetItem(item);

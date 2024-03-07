@@ -6,15 +6,11 @@ using UnityEditor;
 public class PoisonedItemSpawner : MonoBehaviour
 {
     public static Action<Transform> OnPoisonedItemSpawned;
+    [SerializeField] private Item _poisonedItem; 
     [SerializeField] private GameObject poisonedPowerupPrefab;
     [SerializeField] private PathFinder _pathFinder;
     public List<Transform> nodes = new List<Transform>();
     [SerializeField] private List<Transform> nodesToNotSpawnIn = new List<Transform>();
-
-    private void Awake()
-    {
-        // nodes = _pathFinder.nodes;
-    }
 
     private void Start()
     {
@@ -28,16 +24,20 @@ public class PoisonedItemSpawner : MonoBehaviour
 
     public void SpawnPoisonedItem()
     {
-        Debug.Log("Spawning Poisoned Item!");
         int randomIndex = UnityEngine.Random.Range(0, nodes.Count);
-        Debug.Log("ammount of nodes is " + nodes.Count);
         Transform randomNode = nodes[randomIndex];
-        GameObject something = Instantiate(poisonedPowerupPrefab, randomNode.position, Quaternion.identity, transform);
-        Debug.Log("is GameObject real  " + something != null);
+        GameObject poisonedGameObject = Instantiate(poisonedPowerupPrefab, randomNode.position, Quaternion.identity, transform);
         OnPoisonedItemSpawned?.Invoke(randomNode);
+        
+        ItemLocation poisonedItemLocation = new ItemLocation();
+        poisonedItemLocation.item = _poisonedItem;
+        poisonedItemLocation.location = randomNode.GetChild(0);
+
+        LocationOfItemsManager.Instance.AddItemLocation(poisonedItemLocation);
     }
 }
 
+#region Editor
 #if UNITY_EDITOR
 [CustomEditor(typeof(PoisonedItemSpawner))]
 public class PoisonedItemSpawnerEditor : Editor
@@ -66,3 +66,4 @@ public class PoisonedItemSpawnerEditor : Editor
 }
 
 #endif
+#endregion

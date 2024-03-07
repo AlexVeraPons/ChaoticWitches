@@ -52,6 +52,12 @@ public class PotInventory : MonoBehaviour
 
     public void TryPoisionPot(out bool isPoisoned)
     {
+        if(_itemNeededForCure != null)
+        {
+            isPoisoned = false;
+            return;
+        }
+
         if (IsPotInventoryGathered())
         {
             isPoisoned = _isPoisoned;
