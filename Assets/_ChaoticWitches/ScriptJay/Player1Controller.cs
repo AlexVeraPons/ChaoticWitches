@@ -4,6 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Rendering;
+using UnityEngine.SceneManagement;
 
 public class Player1Controller : MonoBehaviour
 {
@@ -59,6 +60,10 @@ public class Player1Controller : MonoBehaviour
 
     public bool canMultiplySteps = false;
 
+    public int victoryScene;
+
+    public bool testGate = false;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -77,6 +82,10 @@ public class Player1Controller : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        if (TeamManager.Instance.GetCurrentTeam().PotInventory.CheckIfAllItemsGathered()){
+            SetTargetToGate();
+        }
+
         if (itIsMyTurn)
         {
             SetTargetColor();
@@ -215,6 +224,10 @@ public class Player1Controller : MonoBehaviour
     {
         //TODO: code to execute when the player has reached the item they chose in the UI
 
+        if (TeamManager.Instance.GetCurrentTeam().PotInventory.CheckIfAllItemsGathered()){
+            SceneManager.LoadScene(victoryScene);
+        }
+
         Debug.Log("destination reached");
         ResetTargetMaterial();
         hasPressed = false;
@@ -235,8 +248,6 @@ public class Player1Controller : MonoBehaviour
 
     private void EndTurn()
     {
-        //TODO: code to execute when the player has reached the final tile they could reach with their steps
-
         Debug.Log("end turn");
         ResetTargetMaterial();
         itIsMyTurn = false;

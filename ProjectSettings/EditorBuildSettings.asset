@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/_ChaoticWitches/Scenes/ARScene.unity
     guid: 811507b8a9e9d9942aaec950599db369
+  - enabled: 1
+    path: Assets/_ChaoticWitches/Scenes/VictoryScene.unity
+    guid: 85a6af34bd2b02345becbb76d5721578
   m_configObjects: {}

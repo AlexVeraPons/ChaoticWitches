@@ -178,11 +178,12 @@ MonoBehaviour:
   nodesPlayer2: {fileID: 2100000, guid: 4260f035918d286469a116dd6ced2412, type: 2}
   originalNodeMaterial: {fileID: 0}
   otherPlayer: {fileID: 0}
+  gateLocation: {fileID: 0}
   destination: {fileID: 0}
   swapLocation: {fileID: 0}
   haveSwapped: 0
   startedMoving: 0
-  stepAmount: 9
+  stepAmount: 0
   itIsMyTurn: 0
   isPlayer1: 0
   targetIsSet: 0
@@ -190,6 +191,9 @@ MonoBehaviour:
   hasPressed: 0
   speed: 2
   canSetNewTarget: 1
+  canMultiplySteps: 0
+  victoryScene: 1
+  testGate: 0
 --- !u!114 &5482610210363161584
 MonoBehaviour:
   m_ObjectHideFlags: 0
