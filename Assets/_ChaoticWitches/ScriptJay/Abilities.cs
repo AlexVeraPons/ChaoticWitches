@@ -26,22 +26,26 @@ public class Abilities : MonoBehaviour
         {
             if (!player1HasUsedTeleport)
             {
-                player1.gameObject.transform.position = Vector3.Lerp(player1.transform.position, player2.swapLocation.position, 1);
+                player1.gameObject.transform.position = Vector3.Lerp(player1.transform.position, player2.swapLocation.parent.position, 1);
                 player1.haveSwapped = true;
-                player2.gameObject.transform.position = Vector3.Lerp(player2.transform.position, player1.swapLocation.position, 1);
+                player1.startedMoving = false;
+                player2.gameObject.transform.position = Vector3.Lerp(player2.transform.position, player1.swapLocation.parent.position, 1);
                 player2.haveSwapped = true;
+                player2.startedMoving = false;
             }
             player1HasUsedTeleport = true;
         } else
         {
             if (!player2HasUsedTeleport)
             {
-                player1.gameObject.transform.position = Vector3.Lerp(player1.transform.position, player2.swapLocation.position, 1);
+                player1.gameObject.transform.position = Vector3.Lerp(player1.transform.position, player2.swapLocation.parent.position, 1);
                 player1.haveSwapped = true;
-                player2.gameObject.transform.position = Vector3.Lerp(player2.transform.position, player1.swapLocation.position, 1);
+                player1.startedMoving = false;
+                player2.gameObject.transform.position = Vector3.Lerp(player2.transform.position, player1.swapLocation.parent.position, 1);
                 player2.haveSwapped = true;
+                player2.startedMoving = false;
             }
-            player1HasUsedTeleport = true;
+            player2HasUsedTeleport = true;
         }
     }
 

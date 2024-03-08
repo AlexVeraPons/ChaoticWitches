@@ -120,7 +120,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 3430766206765139230}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4552477070912111493}
+        m_TargetAssemblyTypeName: HideGameObject, Assembly-CSharp
+        m_MethodName: SetGameObjectToFalse
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 6933852588128714575}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &3092790222987279086
 GameObject:
   m_ObjectHideFlags: 0
@@ -811,7 +823,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6568773530313791400}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7433856928330615543}
+        m_TargetAssemblyTypeName: SwitchScene, Assembly-CSharp
+        m_MethodName: ChangeScene
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &6049236344736896370
 GameObject:
   m_ObjectHideFlags: 0
@@ -959,13 +983,15 @@ GameObject:
   - component: {fileID: 8610682714684992553}
   - component: {fileID: 8576570856698402965}
   - component: {fileID: 7339128989806935576}
+  - component: {fileID: 4552477070912111493}
+  - component: {fileID: 7433856928330615543}
   m_Layer: 5
   m_Name: ExitScreen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &8144913715324055306
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1056,6 +1082,30 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &4552477070912111493
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6933852588128714575}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9eba35bcfb4d1b4dbe1083b06e4d58f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7433856928330615543
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6933852588128714575}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1baf8218bb026f64993efcb896740802, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7460392242843914937
 GameObject:
   m_ObjectHideFlags: 0

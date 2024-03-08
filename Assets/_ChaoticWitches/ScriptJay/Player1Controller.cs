@@ -9,9 +9,13 @@ using UnityEngine.SceneManagement;
 public class Player1Controller : MonoBehaviour
 {
     public static Action OnTurnEnded;
+    [SerializeField] private Camera mainCamera;
 
     [SerializeField] private PathFinder pathFinder;
     [SerializeField] private LayerMask Nodes;
+
+    [SerializeField] private AudioSource movementSound;
+    private bool needsToPlaySound = false;
 
     [SerializeField] private Material nodesPlayer1;
     [SerializeField] private Material nodesPlayer2;
@@ -24,7 +28,10 @@ public class Player1Controller : MonoBehaviour
 
     [SerializeField] private Player1Controller otherPlayer;
 
-    [SerializeField]private Transform gateLocation;
+    [SerializeField] private Sprite notMovingSprite;
+    [SerializeField] private Sprite movingSprite;
+
+    [SerializeField] private Transform gateLocation;
     public Transform destination;
     public Transform swapLocation;
     public bool haveSwapped = false;
@@ -68,6 +75,7 @@ public class Player1Controller : MonoBehaviour
     void Awake()
     {
         pathFinder = GetComponent<PathFinder>();
+        mainCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
         if (isPlayer1)
         {
             otherPlayer = GameObject.Find("Player2").GetComponent<Player1Controller>();
@@ -93,6 +101,8 @@ public class Player1Controller : MonoBehaviour
                 MovePlayer();
             }
         }
+
+        gameObject.transform.LookAt(mainCamera.transform);
     }
 
     private void OnTriggerStay(Collider collision)
@@ -220,9 +230,22 @@ public class Player1Controller : MonoBehaviour
 
         transform.position = Vector3.Lerp(beginLockedY, endLockedY, elapsedPercentage);
 
+        gameObject.GetComponent<SpriteRenderer>().sprite = movingSprite;
+
+        if(needsToPlaySound)
+        {
+            movementSound.PlayOneShot(movementSound.clip);
+            needsToPlaySound = false;
+        }
+
         if (elapsedPercentage >= 1)
         {
             SetNextTargetInList();
+            if(movementSound.isPlaying == false)
+            {
+                needsToPlaySound = true;
+                gameObject.GetComponent<SpriteRenderer>().sprite = notMovingSprite;
+            }
         }
     }
 
