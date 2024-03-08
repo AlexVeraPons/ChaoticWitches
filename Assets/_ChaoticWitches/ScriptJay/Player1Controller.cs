@@ -87,7 +87,6 @@ public class Player1Controller : MonoBehaviour
 
         if (itIsMyTurn)
         {
-            ResetNodeColor();
             SetTargetColor();
             if (listIsFilled)
             {
@@ -277,6 +276,7 @@ public class Player1Controller : MonoBehaviour
 
     public void SetTarget(Transform newTarget)
     {
+        targetIsSet = true;
         canSetNewTarget = false;
         pathFinder.targetNode = newTarget;
     }
