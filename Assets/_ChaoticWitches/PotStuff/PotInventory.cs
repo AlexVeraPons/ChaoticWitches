@@ -41,6 +41,13 @@ public class PotInventory : MonoBehaviour
 
         if (itemInInventory != null && !itemInInventory.IsGathered())
         {
+            if (itemInInventory == _itemNeededForCure)
+            {
+                _itemNeededForCure = null;
+                OnUnpoisonedPot?.Invoke(itemInInventory);
+                gameObject.GetComponent<OnPoisoned>().UnPoison();
+            }
+
             itemInInventory.Gather();
             OnItemGathered?.Invoke(itemInInventory);
             if (IsPotInventoryGathered())

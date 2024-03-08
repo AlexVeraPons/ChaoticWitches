@@ -16,7 +16,6 @@ public class ItemGatherer : MonoBehaviour
         ICanBeGathered item = other.GetComponent<ICanBeGathered>();
         if (item != null && !item.IsGathered())
         {
-            Debug.Log("Item gatherer has gathered an item!");
             item.Gather();
             _potInventory.TryGatherItem(item.GetItem());
         }

@@ -61,12 +61,14 @@ public class PlayingState : GameState {
     private void Update() {
         if (Input.GetKeyDown(KeyCode.C))
         {
-            ChangeTurn();
+            Lose(_currentTurn);
         }
     }
 
     public void Lose(Turn turn)
     {
+            if(stateMachine == null)
+            {stateMachine = this.GetComponent<GameStateMachine>();}
         if (turn == Turn.Team1)
         {
             stateMachine.SetWinner(Turn.Team2);
@@ -75,6 +77,7 @@ public class PlayingState : GameState {
         else
         {
             stateMachine.SetWinner(Turn.Team1);
+            stateMachine.SwitchState(stateMachine.EndGameState);
         }
     }
 }

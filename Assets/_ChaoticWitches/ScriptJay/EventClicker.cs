@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -11,7 +12,6 @@ public class EventClicker : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
     [SerializeField] private Player1Controller player1;
     [SerializeField] private Player1Controller player2;
 
-    [SerializeField] private MovementTest movementTestPlayer1;
 
     [SerializeField] private PathFinder pathPlayer1;
     [SerializeField] private PathFinder pathPlayer2;
@@ -24,16 +24,11 @@ public class EventClicker : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
 
         pathPlayer1 = GameObject.Find("Player1").GetComponent<PathFinder>();
         pathPlayer2 = GameObject.Find("Player2").GetComponent<PathFinder>();
-
-
-        movementTestPlayer1 = GameObject.Find("Player1").GetComponent<MovementTest>();
-
-        movementTestPlayer1.hasPressed = false;
     }
 
     private void FixedUpdate()
     {
-        
+
     }
 
     public void OnPointerDown(PointerEventData eventData)
@@ -79,3 +74,32 @@ public class EventClicker : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
 
     }
 }
+
+#if UNITY_EDITOR
+// create a window to add event clicker to all children of tiles
+public class EventClickerWindow : EditorWindow
+{
+    private static GameObject[] tiles;
+
+    [MenuItem("Window/Event Clicker")]
+    public static void ShowWindow()
+    {
+        GetWindow<EventClickerWindow>("Event Clicker");
+    }
+
+    private void OnGUI()
+    {
+        if (GUILayout.Button("Add Event Clicker"))
+        {
+            tiles = GameObject.FindGameObjectsWithTag("Nodes");
+            foreach (GameObject tile in tiles)
+            {
+                if (tile.GetComponent<EventClicker>() == null)
+                {
+                    tile.AddComponent<EventClicker>();
+                }
+            }
+        }
+    }
+}
+#endif

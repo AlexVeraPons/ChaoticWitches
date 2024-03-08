@@ -75,7 +75,6 @@ public class Player1Controller : MonoBehaviour
     void Awake()
     {
         pathFinder = GetComponent<PathFinder>();
-        mainCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
         if (isPlayer1)
         {
             otherPlayer = GameObject.Find("Player2").GetComponent<Player1Controller>();
@@ -101,8 +100,6 @@ public class Player1Controller : MonoBehaviour
                 MovePlayer();
             }
         }
-
-        gameObject.transform.LookAt(mainCamera.transform);
     }
 
     private void OnTriggerStay(Collider collision)

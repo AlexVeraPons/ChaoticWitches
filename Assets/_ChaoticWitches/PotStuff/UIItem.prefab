@@ -90,7 +90,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _changesColor: 1
-  _notGatheredColor: {r: 0.7830189, g: 0.7830189, b: 0.7830189, a: 1}
+  _notGatheredColor: {r: 0.6226415, g: 0.3025098, b: 0.3025098, a: 1}
   _item: {fileID: 0}
 --- !u!114 &167508644422065726
 MonoBehaviour:

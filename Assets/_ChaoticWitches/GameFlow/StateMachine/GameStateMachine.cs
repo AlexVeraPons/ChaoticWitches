@@ -16,6 +16,7 @@ public class GameStateMachine : BaseStateMachine
     {
         PlayingState = GetComponent<PlayingState>();
         StartsState = GetComponent<StateStart>();
+        EndGameState = GetComponent<EndGameState>();
     }
 
     private void Start() {

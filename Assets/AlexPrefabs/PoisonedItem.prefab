@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7356856772395375467}
   - component: {fileID: 230238070438103319}
   - component: {fileID: 3231743875311002014}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: PoisonedItem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -192,20 +192,80 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 763092847418720332, guid: e720e1e6197cde64bb83a5edc336014f,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1099669382498942128, guid: e720e1e6197cde64bb83a5edc336014f,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1390939315361818892, guid: e720e1e6197cde64bb83a5edc336014f,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3141306070706986718, guid: e720e1e6197cde64bb83a5edc336014f,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3892050166547382113, guid: e720e1e6197cde64bb83a5edc336014f,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5451394060294963917, guid: e720e1e6197cde64bb83a5edc336014f,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7326371707418312562, guid: e720e1e6197cde64bb83a5edc336014f,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7326371707418312562, guid: e720e1e6197cde64bb83a5edc336014f,
         type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7738330401890942219, guid: e720e1e6197cde64bb83a5edc336014f,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7884753597124855321, guid: e720e1e6197cde64bb83a5edc336014f,
         type: 3}
       propertyPath: m_Name
       value: Apple_Poison
       objectReference: {fileID: 0}
+    - target: {fileID: 7884753597124855321, guid: e720e1e6197cde64bb83a5edc336014f,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8248651231615453213, guid: e720e1e6197cde64bb83a5edc336014f,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8979352704482559889, guid: e720e1e6197cde64bb83a5edc336014f,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 8979352704482559889, guid: e720e1e6197cde64bb83a5edc336014f,
         type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9010048010301536331, guid: e720e1e6197cde64bb83a5edc336014f,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
