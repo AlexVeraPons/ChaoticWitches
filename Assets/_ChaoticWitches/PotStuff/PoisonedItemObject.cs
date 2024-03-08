@@ -7,6 +7,10 @@ public class PoisonedItemObject : MonoBehaviour {
         if (other.GetComponent<Player1Controller>()) {
             _currentPot.TryPoisionPot(out bool isPoisoned);
             
+            OnPoisoned poisoned = _currentPot.gameObject.AddComponent<OnPoisoned>();
+            PlayingState.Turn team = PlayingState.Instance.GetCurrentTurn() == PlayingState.Turn.Team1 ? PlayingState.Turn.Team2 : PlayingState.Turn.Team1;
+            poisoned.SetTeam(team);
+            
             if (isPoisoned)
             {
                 Destroy(gameObject);

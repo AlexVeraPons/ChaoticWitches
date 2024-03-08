@@ -2,6 +2,23 @@ using System;
 using UnityEngine;
 
 public class PlayingState : GameState {
+    #region Singleton
+    public static PlayingState Instance { get; private set; }
+    
+    void Awake()
+    {
+        transform.parent = null;
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+            Destroy(gameObject);
+    }
+    #endregion
+    
+    
     public static Action<Turn> OnTurnChanged;
     public static Action OnEnterState;
     public enum Turn
@@ -45,6 +62,19 @@ public class PlayingState : GameState {
         if (Input.GetKeyDown(KeyCode.C))
         {
             ChangeTurn();
+        }
+    }
+
+    public void Lose(Turn turn)
+    {
+        if (turn == Turn.Team1)
+        {
+            stateMachine.SetWinner(Turn.Team2);
+            stateMachine.SwitchState(stateMachine.EndGameState);
+        }
+        else
+        {
+            stateMachine.SetWinner(Turn.Team1);
         }
     }
 }

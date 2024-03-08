@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ecb5069573e096341b1f1c9bd7ade181, type: 3}
   m_Name: PoisonedItem
   m_EditorClassIdentifier: 
-  sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  sprite: {fileID: 21300000, guid: 9d6e7132b68525047b327e514f581ecb, type: 3}
   _itemStatus: 0
