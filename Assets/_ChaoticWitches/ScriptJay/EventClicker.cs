@@ -43,7 +43,6 @@ public class EventClicker : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
             player1.destination = gameObject.transform;
             if(!player1.hasPressed)
             {
-
                 player1.FillInBetweenList();
                 player1.SetNextTargetInList();
             }
