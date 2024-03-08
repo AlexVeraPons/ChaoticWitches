@@ -17,6 +17,11 @@ public class Player1Controller : MonoBehaviour
     [SerializeField] private Material nodesPlayer2;
     [SerializeField] private Material originalNodeMaterial;
 
+    [SerializeField] private Material oldOriginalNodeMaterial;
+    [SerializeField] private Transform oldNodeTransform;
+    private bool hasResetColor = false;
+    private bool isOriginalNodeMaterialSet = false;
+
     [SerializeField] private Player1Controller otherPlayer;
 
     [SerializeField]private Transform gateLocation;
@@ -56,15 +61,10 @@ public class Player1Controller : MonoBehaviour
 
     private bool isItemReachable = false;
 
-    private bool isOriginalNodeMaterialSet = false;
-
     public bool canMultiplySteps = false;
 
     public int victoryScene;
 
-    public bool testGate = false;
-
-    // Start is called before the first frame update
     void Awake()
     {
         pathFinder = GetComponent<PathFinder>();
@@ -79,7 +79,6 @@ public class Player1Controller : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
         if (TeamManager.Instance.GetCurrentTeam().PotInventory.CheckIfAllItemsGathered()){
@@ -132,7 +131,6 @@ public class Player1Controller : MonoBehaviour
 
     private void SetTargetColor()
     {
-
         if (stepAmount >= pathFinder.nodes.Count - 1 && targetIsSet && !isItemReachable)
         {
             isItemReachable = true;
@@ -147,6 +145,14 @@ public class Player1Controller : MonoBehaviour
             {
                 originalNodeMaterial = pathFinder.nodes[stepAmount].gameObject.GetComponent<MeshRenderer>().material;
                 isOriginalNodeMaterialSet = true;
+            }
+
+            if (!hasResetColor)
+            {
+                oldOriginalNodeMaterial = pathFinder.nodes[stepAmount].gameObject.GetComponent<MeshRenderer>().material;
+                oldNodeTransform = pathFinder.nodes[stepAmount].transform;
+                oldNodeTransform.gameObject.GetComponent<MeshRenderer>().material = oldOriginalNodeMaterial;
+                hasResetColor = true;
             }
 
             if (isPlayer1)
@@ -270,6 +276,7 @@ public class Player1Controller : MonoBehaviour
 
     public void SetTarget(Transform newTarget)
     {
+        targetIsSet = true;
         canSetNewTarget = false;
         pathFinder.targetNode = newTarget;
     }
@@ -287,5 +294,14 @@ public class Player1Controller : MonoBehaviour
     private void ResetTargetMaterial()
     {
         pathFinder.nodes[stepAmount].gameObject.GetComponent<MeshRenderer>().material = originalNodeMaterial;
+    }
+
+    public void ResetNodeColor()
+    {
+        if(oldNodeTransform != null)
+        {
+            oldNodeTransform.gameObject.GetComponent<MeshRenderer>().material = oldOriginalNodeMaterial;
+            hasResetColor = false;
+        }
     }
 }
